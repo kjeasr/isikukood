@@ -32,7 +32,7 @@
     let sex = document.getElementById('sex');
     _.each([['M', 'Male'], ['N', 'Female']], function(elem) {
 
-        var opt = document.createElement("option");
+        let opt = document.createElement("option");
         opt.value= elem[0];
 
         opt.appendChild(document.createTextNode(elem[1]));
@@ -41,7 +41,7 @@
     let today = new Date();
     let year = document.getElementById('year')
     _.each(_.range(today.getFullYear(), 1900), function(i) {
-        var opt = document.createElement("option");
+        let opt = document.createElement("option");
         opt.value= i;
         opt.appendChild(document.createTextNode(i));
         year.appendChild(opt);
@@ -49,7 +49,7 @@
 
     let months = document.getElementById('month')
     _.each(_.range(1, 13), function(i) {
-        var opt = document.createElement("option");
+        let opt = document.createElement("option");
         opt.value= i;
         opt.appendChild(document.createTextNode(i));
         months.appendChild(opt);
@@ -58,7 +58,7 @@
 
     let days = document.getElementById('day')
     _.each(_.range(1, 32), function(i) {
-        var opt = document.createElement("option");
+        let opt = document.createElement("option");
         opt.value= i;
         opt.appendChild(document.createTextNode(i));
         days.appendChild(opt);
@@ -71,23 +71,23 @@
     weights_II = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3]
 
     function generate_codes() {
-        var selected_year =  year.value
-        var selected_sex = sex.value
-        var selected_month = months.value
-        var selected_day = days.value
-        var result = ''
+        let selected_year = year.value;
+        let selected_sex = sex.value;
+        let selected_month = months.value;
+        let selected_day = days.value;
+        let result;
 
-        var prefix = PERSONCODE_CENTURY[selected_year.substring(0, 2)][selected_sex]
-        codes = []
-        var pos_1 = _.toInteger(selected_year.substring(2,3));
-        var pos_2 = _.toInteger(selected_year.substring(3,4));
-        var pos_3 = _.toInteger(selected_month < 10 ? '0' : '1' );
-        var pos_4 = _.toInteger(selected_month < 10 ? selected_month : selected_month.substring(1, 2));
-        var pos_5 = _.toInteger(selected_day < 10 ? '0' : selected_day.substring(0, 1));
-        var pos_6 = _.toInteger(selected_day < 10 ? selected_day : selected_day.substring(1, 2));
+        let prefix = PERSONCODE_CENTURY[selected_year.substring(0, 2)][selected_sex];
+        let codes = [];
+        let pos_1 = _.toInteger(selected_year.substring(2, 3));
+        let pos_2 = _.toInteger(selected_year.substring(3, 4));
+        let pos_3 = _.toInteger(selected_month < 10 ? '0' : '1');
+        let pos_4 = _.toInteger(selected_month < 10 ? selected_month : selected_month.substring(1, 2));
+        let pos_5 = _.toInteger(selected_day < 10 ? '0' : selected_day.substring(0, 1));
+        let pos_6 = _.toInteger(selected_day < 10 ? selected_day : selected_day.substring(1, 2));
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
-                for (let n = 0; n < 10; n++) {
+                for (let n = 0, code; n < 10; n++) {
                     code = [
                         prefix,
                         pos_1,
