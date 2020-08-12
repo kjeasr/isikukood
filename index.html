@@ -5,6 +5,10 @@
     <title>Isikukood</title>
 </head>
 <body>
+<div>
+    <a href="https://github.com/kjeasr/isikukood/tree/gh-pages">https://github.com/kjeasr/isikukood/tree/gh-pages</a>
+</div>
+<div>
 <select name="sex" id="sex">
 </select>
 <select name="year" id="year">
@@ -13,6 +17,11 @@
 </select>
 <select name="day" id="day">
 </select>
+<button type="button" onclick="generate_codes()">Generate</button>
+</div>
+<div id="result">
+
+</div>
 <script src="js/lodash.min.js"> </script>
 <script>
 
@@ -37,9 +46,86 @@
         opt.appendChild(document.createTextNode(i));
         year.appendChild(opt);
     })
-    function generte_codes() {
 
+    let months = document.getElementById('month')
+    _.each(_.range(1, 13), function(i) {
+        var opt = document.createElement("option");
+        opt.value= i;
+        opt.appendChild(document.createTextNode(i));
+        months.appendChild(opt);
+    })
+    months.value = today.getMonth() + 1
+
+    let days = document.getElementById('day')
+    _.each(_.range(1, 32), function(i) {
+        var opt = document.createElement("option");
+        opt.value= i;
+        opt.appendChild(document.createTextNode(i));
+        days.appendChild(opt);
+    })
+    days.value = today.getDate()
+
+    let result_div = document.getElementById('result');
+
+    weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1]
+    weights_II = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3]
+
+    function generate_codes() {
+        var selected_year =  year.value
+        var selected_sex = sex.value
+        var selected_month = months.value
+        var selected_day = days.value
+        var result = ''
+
+        var prefix = PERSONCODE_CENTURY[selected_year.substring(0, 2)][selected_sex]
+        codes = []
+
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                for (let n = 0; n < 10; n++) {
+                    code = [
+                        prefix,
+                        _.toInteger(selected_year.substring(2,3)),
+                        _.toInteger(selected_year.substring(3,4)),
+                        _.toInteger(selected_month < 10 ? '0' : '1' ),
+                        _.toInteger(selected_month < 10 ? selected_month : selected_month.substring(1, 2)),
+                        _.toInteger(selected_day < 10 ? '0' : selected_day.substring(0, 1)),
+                        _.toInteger(selected_day < 10 ? selected_day : selected_day.substring(1, 2)),
+                        i,
+                        j,
+                        n,
+                    ]
+                    codes.push(code)
+                }
+            }
+        }
+
+        // checksums
+
+        _.each(codes, function (code) {
+            checksum = 0
+            for (let i = 0; i < code.length; i++) {
+                checksum = checksum + (code[i] * weights[i])
+            }
+            checksum = checksum % 11
+            if (checksum === 10) {
+                for (let i = 0; i < code.length; i++) {
+                    checksum = checksum + (code[i] * weights_II[i])
+                }
+                checksum = checksum % 11
+            }
+            checksum = checksum === 10 ? 0 : checksum
+            code.push(checksum)
+        })
+
+        let tmp = [];
+        _.each(codes, function (code) {
+            tmp.push(code.join(''))
+        })
+        result = tmp.join(' ')
+        result_div.innerHTML = result
     }
+    generate_codes();
 </script>
 </body>
 </html>
