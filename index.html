@@ -19,7 +19,7 @@
 </select>
 <button type="button" onclick="generate_codes()">Generate</button>
 </div>
-<div id="result">
+<div id="result" style="word-spacing: 0.33em; line-height: 1.33em;">
 
 </div>
 <script src="js/lodash.min.js"> </script>
@@ -127,10 +127,14 @@
         _.each(codes, function (code) {
             tmp.push(code.join(''))
         })
-        result = tmp.join(' ')
+        result = tmp.join('   ')
         result_div.innerHTML = result
     }
     generate_codes();
+    sex.addEventListener('change', generate_codes)
+    year.addEventListener('change', generate_codes)
+    months.addEventListener('change', generate_codes)
+    days.addEventListener('change', generate_codes)
 </script>
 </body>
 </html>
