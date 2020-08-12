@@ -5,6 +5,41 @@
     <title>Isikukood</title>
 </head>
 <body>
+<select name="sex" id="sex">
+</select>
+<select name="year" id="year">
+</select>
+<select name="month" id="month">
+</select>
+<select name="day" id="day">
+</select>
+<script src="js/lodash.min.js"> </script>
+<script>
 
+    PERSONCODE_CENTURY = {
+        19: {'M': 3, 'N': 4},
+        20: {'M': 5, 'N': 6}
+    };
+    let sex = document.getElementById('sex');
+    _.each([['M', 'Male'], ['N', 'Female']], function(elem) {
+
+        var opt = document.createElement("option");
+        opt.value= elem[0];
+
+        opt.appendChild(document.createTextNode(elem[1]));
+        sex.appendChild(opt);
+    });
+    let today = new Date();
+    let year = document.getElementById('year')
+    _.each(_.range(today.getFullYear(), 1900), function(i) {
+        var opt = document.createElement("option");
+        opt.value= i;
+        opt.appendChild(document.createTextNode(i));
+        year.appendChild(opt);
+    })
+    function generte_codes() {
+
+    }
+</script>
 </body>
 </html>
