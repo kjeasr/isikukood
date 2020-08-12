@@ -79,18 +79,23 @@
 
         var prefix = PERSONCODE_CENTURY[selected_year.substring(0, 2)][selected_sex]
         codes = []
-
+        var pos_1 = _.toInteger(selected_year.substring(2,3));
+        var pos_2 = _.toInteger(selected_year.substring(3,4));
+        var pos_3 = _.toInteger(selected_month < 10 ? '0' : '1' );
+        var pos_4 = _.toInteger(selected_month < 10 ? selected_month : selected_month.substring(1, 2));
+        var pos_5 = _.toInteger(selected_day < 10 ? '0' : selected_day.substring(0, 1));
+        var pos_6 = _.toInteger(selected_day < 10 ? selected_day : selected_day.substring(1, 2));
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
                 for (let n = 0; n < 10; n++) {
                     code = [
                         prefix,
-                        _.toInteger(selected_year.substring(2,3)),
-                        _.toInteger(selected_year.substring(3,4)),
-                        _.toInteger(selected_month < 10 ? '0' : '1' ),
-                        _.toInteger(selected_month < 10 ? selected_month : selected_month.substring(1, 2)),
-                        _.toInteger(selected_day < 10 ? '0' : selected_day.substring(0, 1)),
-                        _.toInteger(selected_day < 10 ? selected_day : selected_day.substring(1, 2)),
+                        pos_1,
+                        pos_2,
+                        pos_3,
+                        pos_4,
+                        pos_5,
+                        pos_6,
                         i,
                         j,
                         n,
