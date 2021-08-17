@@ -9,15 +9,24 @@
     <a href="https://github.com/kjeasr/isikukood/tree/gh-pages">https://github.com/kjeasr/isikukood/tree/gh-pages</a>
 </div>
 <div>
-<select name="sex" id="sex">
-</select>
-<select name="year" id="year">
-</select>
-<select name="month" id="month">
-</select>
-<select name="day" id="day">
-</select>
-<button type="button" onclick="generate_codes()">Generate</button>
+    <select name="sex" id="sex">
+    </select>
+    <select name="year" id="year">
+    </select>
+    <select name="month" id="month">
+    </select>
+    <select name="day" id="day">
+    </select>
+    <button type="button" onclick="generate_codes()">Generate</button>
+    <span style="padding-left: 1.25em">
+        <button type="button" onclick="setAge(16)">16 years old</button>
+    </span>
+    <span style="padding-left: 1.25em">
+        <button type="button" onclick="setAge(21)">21 years old</button>
+    </span>
+    <span style="padding-left: 1.25em">
+        <button type="button" onclick="setAge(25)">25 years old</button>
+    </span>
 </div>
 <div id="result" style="word-spacing: 0.33em; line-height: 1.33em;">
 
@@ -134,6 +143,11 @@
         })
         result = tmp.join('   ')
         result_div.innerHTML = result
+    }
+
+    function setAge(age) {
+        year.value = today.getFullYear() - age;
+        generate_codes();
     }
 
 
